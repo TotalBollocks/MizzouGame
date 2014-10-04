@@ -1,6 +1,7 @@
 <h1>WELCOME</h1>
 <% if current_user %>
   <h2><%= current_user.username%></h2>
+<%= link_to "High Scores", high_scores_path %>
 <h6><%= link_to "Log out", sign_out_path %></h6>
 <% end %>
 
