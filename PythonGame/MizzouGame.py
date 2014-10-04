@@ -4,12 +4,9 @@ from random import randint
 from pygame.locals import *
 import time
 
-#import gui stuff
-from ocempgui.widgets import *
-from ocempgui.widgets.components import TextListItem
-from ocempgui.widgets.Constants import *
-
-
+#For gui
+#from pgu import gui
+#from pgu import html
 
 pygame.init()
 fpsClock = pygame.time.Clock()
@@ -23,49 +20,63 @@ class logFile():
         self.message = message
         self.time = 100
         self.x = 600;
-        self.y = 500
-        
-    def _create_vframe (text):
-        frame = VFrame (Label (text))
-        frame.spacing = 5
-        frame.align = ALIGN_LEFT
-        return frame
+        self.y = 100+len(log)*12
     
     def update(self):
         self.time-=.2
-        self.y-=.1
+        if self.time <= 0:
+            log.remove(self)
+        
     def draw(self, window):
-        logString = font.render(self.message, 1, (0,255,0,))
+        logString = font.render(self.message, 1, (255,0,0,))
         window.blit(logString, (self.x, self.y))
+        
 
         
 class player():
     def __init__(self, image, name, idNumber, health, attack, defense):
-        self.image = pygame.image.load(image + '.png')
-        self.button1 = pygame.image.load('attack.png')
-        self.button2 = pygame.image.load('defend.png')
-        
+
         self.name = name
         self.idNumber = idNumber
+        
         self.health = health
         self.attack = attack
         self.defense = defense
 
+        self.alive = True
+        
         self.x = 100
         self.y = 300
 
-        self.imageRect = Rect(self.x+50, self.y, self.image.get_rect().w, self.image.get_rect().h)
+        if self.idNumber == 1:
+            self.x = 600
+            
+        self.image = pygame.image.load(image + '.png')
+        self.button1 = pygame.image.load('attack.png')
+        self.button2 = pygame.image.load('defend.png')
+        self.healthImage =  pygame.image.load('healthBar.png')
+        self.manaImage =  pygame.image.load('manaBar.png')
+
+        self.imageRect = Rect(self.x, self.y, self.image.get_rect().w, self.image.get_rect().h)
         self.button1Rect = Rect(self.x, self.y+120, self.button1.get_rect().w, self.button1.get_rect().h)
-        self.button2Rect = Rect(self.x, self.y+200, self.button2.get_rect().w, self.button2.get_rect().h)
+        self.button2Rect = Rect(self.x, self.y+190, self.button2.get_rect().w, self.button2.get_rect().h)
+        self.healthRect = Rect(self.x+120, self.y+70, self.healthImage.get_rect().w, self.healthImage.get_rect().h)
+        self.healthAmount = Rect(self.x+122, self.y+72, self.healthImage.get_rect().w-4, self.healthImage.get_rect().h-4)
+        self.manaRect = Rect(self.x+120, self.y+25+70, self.manaImage.get_rect().w, self.manaImage.get_rect().h)
+        self.manaAmount = Rect(self.x+122, self.y+25+72, self.manaImage.get_rect().w-4, self.manaImage.get_rect().h-4)
         
-        self.alive = True
-        
-        print name, health, attack, defense
-        
-    def updateHealth(attack):
-        this.health -= attack
-        if this.health <= 0:
+    def updateHealth(self, attack):
+        if self.health <= 0:
+            self.health = 0
+            self.healthAmount.width = 0
             self.alive = False
+        else:
+            self.health -= attack
+            self.healthAmount.width -= attack
+
+    def updateMana(self, attack):
+        self.mana -= attack
+        self.manaAmount.width-=attack
             
     # mouse x and y
     def doTurn(self, x, y, enemy):
@@ -73,10 +84,9 @@ class player():
         if(self.imageRect.collidepoint(x, y)):
             print "player clicked"
         elif(self.button1Rect.collidepoint(x, y)):
+            self.updateHealth(self.attack)
             enemy.getAttacked(self.attack)
-            print "attack"
         elif(self.button2Rect.collidepoint(x, y)):
-            print "defend"
             enemy.getDefend(self.defense)
         
 
@@ -84,6 +94,10 @@ class player():
         window.blit(self.image, self.imageRect)
         window.blit(self.button1, self.button1Rect)
         window.blit(self.button2, self.button2Rect)
+        window.blit(self.healthImage, self.healthRect)
+        window.blit(self.manaImage, self.manaRect)
+        pygame.draw.rect(window, (255,0,0), self.healthAmount)
+        pygame.draw.rect(window, (0,0,255), self.manaAmount)
         #pygame.draw.rect(window, (255,0,0), self.button1Rect)
 
 
@@ -105,7 +119,7 @@ class encounter():
         if self.health <= 0:
             self.alive = False;
         else:
-            log.append(logFile("player attacked for a damage of: " + str(attackValue)))
+            log.insert(0, logFile("player attacked for a damage of: " + str(attackValue)))
 
     def getDefend(self, defendValue):
         log.append(logFile("player defended..."))
@@ -138,21 +152,26 @@ encounters = [encounter("elephant", "Monster", 100, 5, 10), encounter("dragon", 
 
 players = [player("Player1", "Guy1", 0, 100, 20, 10), player("Player2","Guy2", 1, 100, 5, 10)]
 
+
 window = pygame.display.set_mode((1000, 600))
 pygame.display.set_caption("Mizzou Game")
 
-# create GUI object
-gui = Renderer()
-gui.screen = window
-
-# create page label
-lbl = Label('Pygame GUI Test Page - Ocemp')
-lbl.position = 29, 13
-gui.add_widget(lbl)
-
-
 whiteColor = pygame.Color(255,255,255)
 
+# GUI stuff..............................
+#app = gui.App()
+#def i_disable(value):
+#    item.disabled = False
+    #item.blur()
+    #item.chsize()
+#c = gui.Container(width=240,height=120)
+#spacer = gui.Spacer(240,220)
+#item = gui.ScrollArea(spacer,height=120)
+#item.connect(gui.CLICK,i_disable,None)
+#c.add(item,500,400)
+#app.init(c)
+#app.run(c)
+#.........................................
 
 encounter = None
 yourTurn = True
@@ -174,9 +193,7 @@ while True:
             else:
                 encounter.doTurn()
     
-    window.fill(whiteColor)
-
-    
+    window.fill(whiteColor)     
     # Get next random encounter once encounter becomes None
     if(encounter == None):
         encounter = encounters[randint(0,len(encounters)-1)]
@@ -185,28 +202,16 @@ while True:
         encounter = None
 
     # Display current encounter
-    else:
-        
+    else:        
         encounter.draw(window)
-        
+
         for player in players:
             player.draw(window)
 
         for s in log:
             s.update()
             s.draw(window)
-            if s.time <= 0:
-                log.remove(s)
-            
-
-    gui.update()
-    gui.draw(window)
-
-            
-        
-
+     
     pygame.display.update()
-
-    
 
 
