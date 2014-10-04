@@ -17,6 +17,7 @@ font = pygame.font.SysFont("monospace", 15)
 
 log = []
 
+
 class logFile():
     def __init__(self, message):
         self.message = message
@@ -29,6 +30,9 @@ class logFile():
 class player():
     def __init__(self, image, name, idNumber, weapon, armor, health):
 
+        #this tracks if the player pressed the player specific inv
+        self.invPressed = False
+        
         self.name = name
         self.idNumber = idNumber
 
@@ -67,7 +71,7 @@ class player():
             
         self.image = pygame.image.load(image + '.png')
         self.button1 = pygame.image.load('attack.png')
-        self.button2 = pygame.image.load('defend.png')
+        self.button2 = pygame.image.load('inventory.png')
         self.healthImage =  pygame.image.load('healthBar.png')
         self.manaImage =  pygame.image.load('manaBar.png')
 
@@ -101,8 +105,15 @@ class player():
             #self.updateHealth(self.attack)
             enemy.getAttacked(self.attack)
         elif(self.button2Rect.collidepoint(x, y)):
-            enemy.getDefend(self.defense)
-        
+            self.getInventory()
+
+    #Making  an inventory screen over the player who pressed it
+    def getInventory(self):
+        if self.invPressed == False:
+            self.invPressed = True
+        else:
+            self.invPressed = False
+        #need logic to close and then open more current inv
 
     def draw(self, window):
         window.blit(self.image, self.imageRect)
@@ -113,6 +124,9 @@ class player():
         pygame.draw.rect(window, (255,0,0), self.healthAmount)
         pygame.draw.rect(window, (0,0,255), self.manaAmount)
         #pygame.draw.rect(window, (255,0,0), self.button1Rect)
+        #Drawing the player inv if not pressed
+        if self.invPressed == True:
+            pygame.draw.rect(window,(0,0,0),Rect(500,300,600,300))
 
 
 class encounter():
@@ -159,9 +173,8 @@ class encounter():
             self.alive = False;
         else:
             log.insert(0, logFile("player attacked for a damage of: " + str(attackValue)))
-
-    def getDefend(self, defendValue):
-        log.insert(0, logFile("player defended..."))
+        
+        
 
     def updateHealth(self, attack):
         self.health -= attack
@@ -178,7 +191,7 @@ class encounter():
         
         window.blit(self.image, (size_x/2-image_size_x/2, size_y/2-image_size_y/2-100))
         window.blit(label, (size_x/2-image_size_x/2, size_y/2-image_size_y/2-100))
-    
+
 
 class other():
     def __init__(self, name, message):
