@@ -20,18 +20,6 @@ log = []
 class logFile():
     def __init__(self, message):
         self.message = message
-<<<<<<< HEAD
-        self.time = 100
-=======
-        self.time = 1009
-        self.x = 600;
-        self.y = 100+len(log)*12
-    
-    def update(self):
-        self.time-=.2
-        if self.time <= 0:
-            log.remove(self)
->>>>>>> origin/master
         
     def draw(self, window, x, y):
         logString = font.render(self.message, 1, (255,0,0,))
