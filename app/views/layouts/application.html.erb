@@ -25,12 +25,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#" style="padding-left:100px;">Pomodori</a>
+          <%= link_to "Pomodori", root_path, class: "navbar-brand", style: "padding-left:100px;"%>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-collapse-main">
           <ul class="nav nav-tabs navbar-right" style="margin: 10px 80px 0px 0px">
-            <li><a href="#main">Main</a></li>
+            <li><%= link_to "Main", root_path %></li>
             <li><a href="#about">About</a></li>
             <% if current_user %>
             <li><%= current_user %></li>
