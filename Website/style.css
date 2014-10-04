@@ -1072,6 +1072,7 @@ h6 .small,
 h1,
 .h1 {
   font-size: 39px;
+  text-shadow: 4px 4px 4px black, 0 1px 0 black;
 }
 h2,
 .h2 {
@@ -1080,11 +1081,6 @@ h2,
 h3,
 .h3 {
   font-size: 26px;
-  height: 80vh;
-  background-color: #700000;
-  box-shadow: 10px 10px 15px 0px rgba(11, 11, 11, 0.22);
-  border-radius: 5px;
-  padding: 25px;
 }
 h4,
 .h4 {
@@ -1100,6 +1096,7 @@ h6,
 }
 p {
   margin: 0 0 10.5px;
+  font-size: 26px;
 }
 .lead {
   margin-bottom: 21px;
@@ -1593,6 +1590,12 @@ pre code {
   }
   .col-sm-10 {
     width: 83.33333333%;
+    background-color: #700000;
+    box-shadow: 10px 10px 15px 0px rgba(11, 11, 11, 0.22);
+    border-radius: 5px;
+    padding: 25px;
+    margin: 80px; 0px; 0px; 0px;
+    
   }
   .col-sm-9 {
     width: 75%;
