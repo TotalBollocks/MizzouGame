@@ -135,9 +135,9 @@ class encounter():
         
         # Center the image
         size_x, size_y = window.get_size()
-        image_size_x, image_size_y = encounter.image.get_size()
+        image_size_x, image_size_y = self.image.get_size()
         
-        window.blit(encounter.image, (size_x/2-image_size_x/2, size_y/2-image_size_y/2-100))
+        window.blit(self.image, (size_x/2-image_size_x/2, size_y/2-image_size_y/2-100))
         window.blit(label, (size_x/2-image_size_x/2, size_y/2-image_size_y/2-100))
     
 
@@ -153,65 +153,68 @@ encounters = [encounter("elephant", "Monster", 100, 5, 10), encounter("dragon", 
 players = [player("Player1", "Guy1", 0, 100, 20, 10), player("Player2","Guy2", 1, 100, 5, 10)]
 
 
-window = pygame.display.set_mode((1000, 600))
-pygame.display.set_caption("Mizzou Game")
+def main():
 
-whiteColor = pygame.Color(255,255,255)
+    window = pygame.display.set_mode((1000, 600))
+    pygame.display.set_caption("Mizzou Game")
 
-# GUI stuff..............................
-#app = gui.App()
-#def i_disable(value):
-#    item.disabled = False
-    #item.blur()
-    #item.chsize()
-#c = gui.Container(width=240,height=120)
-#spacer = gui.Spacer(240,220)
-#item = gui.ScrollArea(spacer,height=120)
-#item.connect(gui.CLICK,i_disable,None)
-#c.add(item,500,400)
-#app.init(c)
-#app.run(c)
-#.........................................
+    whiteColor = pygame.Color(255,255,255)
 
-encounter = None
-yourTurn = True
+    # GUI stuff..............................
+    #app = gui.App()
+    #def i_disable(value):
+    #    item.disabled = False
+        #item.blur()
+        #item.chsize()
+    #c = gui.Container(width=240,height=120)
+    #spacer = gui.Spacer(240,220)
+    #item = gui.ScrollArea(spacer,height=120)
+    #item.connect(gui.CLICK,i_disable,None)
+    #c.add(item,500,400)
+    #app.init(c)
+    #app.run(c)
+    #.........................................
 
-mouseX = 800
-mouseY = 800
+    encounter = None
+    yourTurn = True
 
-while True:
-    # Close the window
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
+    mouseX = 800
+    mouseY = 800
 
-        elif event.type == MOUSEBUTTONDOWN:
-            mouseX, mouseY = event.pos
-            if yourTurn:
-                players[0].doTurn(mouseX, mouseY, encounter)
-            else:
-                encounter.doTurn()
-    
-    window.fill(whiteColor)     
-    # Get next random encounter once encounter becomes None
-    if(encounter == None):
-        encounter = encounters[randint(0,len(encounters)-1)]
+    while True:
+        # Close the window
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
 
-    elif encounter.alive == False:
-        encounter = None
+            elif event.type == MOUSEBUTTONDOWN:
+                mouseX, mouseY = event.pos
+                if yourTurn:
+                    players[0].doTurn(mouseX, mouseY, encounter)
+                else:
+                    encounter.doTurn()
+        
+        window.fill(whiteColor)     
+        # Get next random encounter once encounter becomes None
+        if(encounter == None):
+            encounter = encounters[randint(0,len(encounters)-1)]
 
-    # Display current encounter
-    else:        
-        encounter.draw(window)
+        elif encounter.alive == False:
+            encounter = None
 
-        for player in players:
-            player.draw(window)
+        # Display current encounter
+        else:        
+            encounter.draw(window)
 
-        for s in log:
-            s.update()
-            s.draw(window)
-     
-    pygame.display.update()
+            for player in players:
+                player.draw(window)
+
+            for s in log:
+                s.update()
+                s.draw(window)
+         
+        pygame.display.update()
 
 
+main()
