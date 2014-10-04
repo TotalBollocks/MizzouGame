@@ -1,8 +1,9 @@
 import pygame, sys
-import ocempgui.access
+#import ocempgui.access
 from random import randint
 from pygame.locals import *
 import time
+import math
 
 
 #For gui
@@ -19,7 +20,18 @@ log = []
 class logFile():
     def __init__(self, message):
         self.message = message
+<<<<<<< HEAD
         self.time = 100
+=======
+        self.time = 1009
+        self.x = 600;
+        self.y = 100+len(log)*12
+    
+    def update(self):
+        self.time-=.2
+        if self.time <= 0:
+            log.remove(self)
+>>>>>>> origin/master
         
     def draw(self, window, x, y):
         logString = font.render(self.message, 1, (255,0,0,))
@@ -28,14 +40,35 @@ class logFile():
 
         
 class player():
-    def __init__(self, image, name, idNumber, health, attack, defense):
+    def __init__(self, image, name, idNumber, weapon, armor, health):
 
         self.name = name
         self.idNumber = idNumber
-        
-        self.health = health
-        self.attack = attack
-        self.defense = defense
+
+        #Weapon is a number right now. Implemented later.
+        self.weapon = weapon
+
+        #Armor is a number right now. Implemented later.
+        self.armor = armor
+
+        #New stats
+        self.Str = randint(3,9)
+        self.Skl = randint(3,9)
+        self.Ini = randint(3,9)
+        self.Dex = randint(3,9)
+        self.Int = randint(3,9)
+        self.Spr = randint(3,9)
+        self.Tgh = randint(3,9)
+        self.Lck = randint(3,9)
+
+        #Defense is now the TOTAL from armor and Tgh.
+        self.defense = (math.floor(self.Tgh/2) + self.armor)
+
+        #Attack is now the Total from weapon and Str.
+        self.attack = self.Str + self.weapon
+
+        #Health is calculated from Tgh plus whatever the base(health) is
+        self.health = health + self.Tgh
 
         self.alive = True
         
@@ -142,9 +175,11 @@ class other():
         print name, message
 
 
+
+#CREATING AN ACTUAL ENCOUNTER
 encounters = [encounter("elephant", "Monster", 100, 5, 10), encounter("dragon", "Dragon", 300, 20, 20), encounter("monster", "Monster", 200, 20, 20)]
 
-players = [player("Player1", "Guy1", 0, 100, 20, 10), player("Player2","Guy2", 1, 100, 5, 10)]
+players = [player("Player1", "Guy1", 0, 5, 2, 20), player("Player2","Guy2", 1, 5, 2, 20)]
 
 
 def main():

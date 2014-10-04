@@ -1,24 +1,68 @@
-<h1>WELCOME</h1>
-<% if current_user %>
-  <h2><%= current_user.username%></h2>
-<%= link_to "High Scores", high_scores_path %>
-<h6><%= link_to "Log out", sign_out_path %></h6>
-<% end %>
+            <!--FIRST SECTION-->
+        <a name="main"></a>
+        <div class="row" style=" padding-top:60px;">
+            <div class="col-sm-1"> </div>
+            <div class="col-sm-10 text-center"> 
+                    <h1> <strong>WORK</strong> hard  | <strong>PLAY</strong> harder</h1>
+                    <p>---</p>
+                    <p>Have you ever wanted to <strong> actually </strong>get your work done, but also get in some quality gaming time?</p>
+                    <p>---</p>
+                    <p>Not very good at pacing yourself?</p>
+                    <p>---</p>
+                    <p> Need a way to balance studying and gaming?</p>
+                    <p>---</p>
+                    <h1> <strong>Try Pomodori!</strong> </h1>
+            </div>
+            <div class="col-sm-1"> </div>
+        </div> <!--ROW 1-->
+        
+        
+        
+        <!--SECOND SECTION-->
+        <a name="about"></a>
+        <div class="row">
+            <div class="col-sm-1"> </div>
+            <div class="col-sm-10 text-center"> 
+                <div class="page-header text-center">
+                    <h1><strong>Pomo - What? </strong></h1>
+                </div>
+                <p>---</p>
+                <p> This website is based off of the <strong>Pomodoro Technique </strong> which is a time management method developed by Francesco Cirillo in the late 1980s. The technique uses a timer to break down work into intervals traditionally 25 minutes in length, separated by short breaks. These intervals are known as "<strong>pomodori</strong>", the plural of the Italian word pomodoro for "tomato".  </p>
+                <p>---</p>
+                <p> The idea is that for each successive interval of work, you get a timed game break before you head back to work.  </p>
+                <p> HOWEVER </p>
+                <p> For every successive interval of work you accomplish, the reward multipliyer in game increases.</p>
+                <p>---</p>
+                <p>The longer you keep your work habit, the better the rewards!</p>
+                
+            </div>
+            <div class="col-sm-1"> </div>
+        </div> <!--ROW 2-->
+        
+        <!--THIRD SECTION-->
+        <a name="sign"></a>
+        <div class="row">
+            <div class="col-sm-1"> </div>
+            <div class="col-sm-10 text-center"> 
+                <h1>Sign up now!</h1>
+                
+              <%= render "users/form" %>
+                <p> Already have an account? </p>
+                <%= form_tag sessions_path do %>
+                  <h1>Sign in!</h1>
+                  <div>
+                    <%= label_tag :username %>
+                    <%= text_field_tag :username, nil %>
+                  </div>
 
-<%= form_tag sessions_path do %>
-  <h2>Sign in</h2>
-  <div>
-    <%= label_tag :username %>
-    <%= text_field_tag :username, nil %>
-  </div>
+                  <div>
+                    <%= label_tag :password %>
+                    <%= password_field_tag :password, nil %>
+                  </div>
 
-  <div>
-    <%= label_tag :password %>
-    <%= password_field_tag :password, nil %>
-  </div>
-
-  <%= submit_tag "Sign in" %>
-
-<% end %>
-
-<%= link_to "or Sign Up", [:new, :user] %>
+                  <%= submit_tag "Sign in" %>
+                <% end %>
+            </div>
+            <div class="col-sm-1"> </div>
+        </div> <!--ROW 1-->
+        <!--ROW 3-->
