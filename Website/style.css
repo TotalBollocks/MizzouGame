@@ -893,7 +893,7 @@ body {
   font-size: 15px;
   line-height: 1.42857143;
   color: #ffffff;
-  background-color: #700000;
+  background-color: #900000;
 }
 input,
 button,
@@ -909,7 +909,7 @@ a {
 }
 a:hover,
 a:focus {
-  color: #0ce3ac;
+  color: #000;
   text-decoration: underline;
 }
 a:focus {
@@ -1083,12 +1083,12 @@ h3,
 }
 h4,
 .h4 {
-  font-size: 19px;
+  font-size: 20px;
   height: 80vh;
-  background-color: #900000;
-  box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.2);
+  background-color: #700000;
+  box-shadow: 10px 10px 15px 0px rgba(11, 11, 11, 0.22);
   border-radius: 5px;
-  padding: 15px;
+  padding: 25px;
     fo
 }
 h5,
@@ -3617,7 +3617,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   max-width: none;
 }
 .nav-tabs {
-  border-bottom: 1px solid #464545;
+  border-bottom: 1px solid #d4d4d4;
 }
 .nav-tabs > li {
   float: left;
@@ -3630,7 +3630,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-radius: 4px 4px 0 0;
 }
 .nav-tabs > li > a:hover {
-  border-color: #464545 #464545 #464545;
+  border-color: #d4d4d4 #d4d4d4 #d4d4d4;
+  background-color: #2a532a;
 }
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
@@ -4096,7 +4097,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #00bc8c;
+  color: white;
   background-color: transparent;
 }
 .navbar-default .navbar-text {
