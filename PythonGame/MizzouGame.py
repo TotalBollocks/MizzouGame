@@ -4,6 +4,7 @@ from random import randint
 from pygame.locals import *
 import time
 
+
 #For gui
 #from pgu import gui
 #from pgu import html
@@ -19,17 +20,10 @@ class logFile():
     def __init__(self, message):
         self.message = message
         self.time = 100
-        self.x = 600;
-        self.y = 100+len(log)*12
-    
-    def update(self):
-        self.time-=.2
-        if self.time <= 0:
-            log.remove(self)
         
-    def draw(self, window):
+    def draw(self, window, x, y):
         logString = font.render(self.message, 1, (255,0,0,))
-        window.blit(logString, (self.x, self.y))
+        window.blit(logString, (x, y))
         
 
         
@@ -122,7 +116,7 @@ class encounter():
             log.insert(0, logFile("player attacked for a damage of: " + str(attackValue)))
 
     def getDefend(self, defendValue):
-        log.append(logFile("player defended..."))
+        log.insert(0, logFile("player defended..."))
 
     def updateHealth(self, attack):
         self.health -= attack
@@ -208,11 +202,15 @@ def main():
             encounter.draw(window)
 
             for player in players:
-                player.draw(window)
+                player.draw(window)     
 
+        # Display the log ------------------------
+            i = 0
             for s in log:
-                s.update()
-                s.draw(window)
+                i+=1
+                if i <= 10:
+                    s.draw(window, 670, 50+12*i)
+        # ----------------------------------------
          
         pygame.display.update()
 
