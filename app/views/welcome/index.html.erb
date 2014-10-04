@@ -1,1 +1,23 @@
 <h1>WELCOME</h1>
+<% if current_user %>
+  <h2><%= current_user.username%></h2>
+<h6><%= link_to "Log out", sign_out_path %></h6>
+<% end %>
+
+<%= form_tag sessions_path do %>
+  <h2>Sign in</h2>
+  <div>
+    <%= label_tag :username %>
+    <%= text_field_tag :username, nil %>
+  </div>
+
+  <div>
+    <%= label_tag :password %>
+    <%= password_field_tag :password, nil %>
+  </div>
+
+  <%= submit_tag "Sign in" %>
+
+<% end %>
+
+<%= link_to "or Sign Up", [:new, :user] %>
