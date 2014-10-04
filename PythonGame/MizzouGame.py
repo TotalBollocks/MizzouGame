@@ -25,7 +25,6 @@ class logFile():
         logString = font.render(self.message, 1, (255,0,0,))
         window.blit(logString, (x, y))
         
-
         
 class player():
     def __init__(self, image, name, idNumber, weapon, armor, health):
@@ -99,7 +98,7 @@ class player():
         if(self.imageRect.collidepoint(x, y)):
             print "player clicked"
         elif(self.button1Rect.collidepoint(x, y)):
-            self.updateHealth(self.attack)
+            #self.updateHealth(self.attack)
             enemy.getAttacked(self.attack)
         elif(self.button2Rect.collidepoint(x, y)):
             enemy.getDefend(self.defense)
@@ -117,17 +116,42 @@ class player():
 
 
 class encounter():
-    def __init__(self, image, name, health, attack, defense):
+    def __init__(self, image, name, weapon, armor, health):
         self.image = pygame.image.load(image + '.png')
+
         self.name = name
-        self.health = health
-        self.attack = attack
-        self.defense = defense
+        self.idNumber = 0
+
+        #Weapon is a number right now. Implemented later.
+        self.weapon = weapon = 2
+
+        #Armor is a number right now. Implemented later.
+        self.armor = armor
+
+        #New stats
+        self.Str = randint(3,9)
+        self.Skl = randint(3,9)
+        self.Ini = randint(3,9)
+        self.Dex = randint(3,9)
+        self.Int = randint(3,9)
+        self.Spr = randint(3,9)
+        self.Tgh = randint(3,9)
+        self.Lck = randint(3,9)
+
+        #Defense is now the TOTAL from armor and Tgh.
+        self.defense = (math.floor(self.Tgh/2) + self.armor)
+
+        #Attack is now the Total from weapon and Str.
+        self.attack = self.Str + self.weapon
+
+        #Health is calculated from Tgh plus whatever the base(health) is
+        self.health = health + self.Tgh
 
         self.alive = True
 
-    def doTurn(self):
-        print "doing turn..."
+    def doTurn(self, player):
+        player.updateHealth(self.attack)
+        log.insert(0, logFile(self.name+" attacked for a damage of: " + str(self.attack)))
 
     def getAttacked(self, attackValue):
         self.health-=attackValue
@@ -209,8 +233,8 @@ def main():
                 mouseX, mouseY = event.pos
                 if yourTurn:
                     players[0].doTurn(mouseX, mouseY, encounter)
-                else:
-                    encounter.doTurn()
+                    encounter.doTurn(players[randint(0,len(players)-1)])
+
         
         window.fill(whiteColor)     
         # Get next random encounter once encounter becomes None
@@ -220,12 +244,13 @@ def main():
         elif encounter.alive == False:
             encounter = None
 
+
         # Display current encounter
         else:        
             encounter.draw(window)
 
-            for player in players:
-                player.draw(window)     
+        for player in players:
+            player.draw(window)     
 
         # Display the log ------------------------
             i = 0
