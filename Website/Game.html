@@ -6,64 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HackMizzou2014</title>
       
-    <!-- Bootstrap core CSS -->
-    <link href="style.css" rel="stylesheet">
       
-    <!-- Latest compiled and minified JavaScript -->
+      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-      
-      
-    <!--JAVA SCRIPT FUNCTION DUMP-->
-
-
-<script>
-    
-    function getAttacked() {
-    document.getElementById("log").innerHTML = "You were attacked" ;
-    }
-
-
-
-<!--PLAYER CLASS-->
-
-    function player(image,name,weapon,armor,health) {  
-        var invPressed = false;
-        document.getElementById("log").innerHTML = name;
-        this.name = name;
-        this.weapon = weapon;
-        this.armor = armor;
-        this.Str = Math.floor((Math.random()*6)+3);
-        this.Skl = Math.floor((Math.random()*6)+3);
-        this.Ini = Math.floor((Math.random()*6)+3);
-        this.Dex = Math.floor((Math.random()*6)+3);
-        this.Int = Math.floor((Math.random()*6)+3);
-        this.Spr = Math.floor((Math.random()*6)+3);
-        this.Tgh = Math.floor((Math.random()*6)+3);
-        this.Lck = Math.floor((Math.random()*10));
-        
-    
-        
-        
-    }
-</script>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
+      <!-- Bootstrap core CSS -->
+    <link href="style.css" rel="stylesheet">
   </head>
   <body>
     <div class="container-fluid">
@@ -98,13 +45,20 @@
                 <img id="dragon" src="images/dragon.png" style="display:none">
                 <canvas id="myCanvas" width="800" height="660" style="border:1px solid #d3d3d3;"> </canvas>
                 <script>
-                    var c=document.getElementById("myCanvas");
-                    var ctx=c.getContext("2d");
-                    var img=document.getElementById("dragon");
-                    ctx.drawImage(img,10,10);
-                    
-                    <!--TESTING GAME-->
-                    var player1 = new player("images/player1.png","Player1",5,2,50)   
+                    window.onload = function()
+                    {
+                        var c=document.getElementById("myCanvas");
+                        var ctx=c.getContext("2d");
+                        var img=document.getElementById("dragon");
+                        ctx.drawImage(img,10,10);
+
+                        //TESTING THE GAME
+                        var player1 = new player("images/player1.png","Player1",5,2,50);
+
+                        var logOut = "Player has taken " + player1.weapon + " Damage";
+                        console.log(player1.weapon);
+                        document.getElementById("log").innerHTML = logOut;
+                    }
                         
                 </script>   
                 <br>
@@ -125,6 +79,34 @@
         
     </div> <!--Container fluid-->
   </body>
+
+<!--JAVA SCRIPT FUNCTION DUMP-->
+<script> 
+    function getAttacked() {
+    //document.getElementById("log").innerHTML = "You were attacked" ;
+    }
+
+
+
+<!--PLAYER CLASS-->
+
+    function player(image,name,weapon,armor,health) {  
+        var invPressed = false;
+        // document.getElementById("log").innerHTML = name; 
+        this.name = name;
+        this.weapon = weapon;
+        this.armor = armor;
+        this.Str = Math.floor((Math.random()*6)+3);
+        this.Skl = Math.floor((Math.random()*6)+3);
+        this.Ini = Math.floor((Math.random()*6)+3);
+        this.Dex = Math.floor((Math.random()*6)+3);
+        this.Int = Math.floor((Math.random()*6)+3);
+        this.Spr = Math.floor((Math.random()*6)+3);
+        this.Tgh = Math.floor((Math.random()*6)+3);
+        this.Lck = Math.floor((Math.random()*10)); 
+    }
+</script>
+        
 </html>
 
 
