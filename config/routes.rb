@@ -4,7 +4,7 @@ PomoGame::Application.routes.draw do
   resources :users
   resources :high_scores, only: :index
   
-  get "sign_out", to: "sessions#destroy", as: "sign_out"
+  delete "sign_out", to: "sessions#destroy", as: "sign_out"
   resources :sessions, only: [:create, :new]
 
   # The priority is based upon order of creation: first created -> highest priority.

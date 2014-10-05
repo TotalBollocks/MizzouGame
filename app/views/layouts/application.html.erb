@@ -35,6 +35,7 @@
             <% if current_user %>
             <li><%= link_to current_user, current_user %></li>
             <li><%= link_to "High Scores", high_scores_path %></li>
+            <li><%= link_to "Log out", sign_out_path, method: :delete %></li>
             <% else %>
             <li><a href="#sign">Sign up</a></li>
             <% end %>
