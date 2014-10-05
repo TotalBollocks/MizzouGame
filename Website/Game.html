@@ -52,14 +52,32 @@
             <div class="col-sm-12 text-center">
                 
                 <!--canvas for putting images-->
-                <img id="dragon" src="images/dragon.png" style="display:none">
-                <canvas id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3;"> </canvas>
+                <!--Loading all possible images-->
+                <img id="Dragon" src="images/dragon.png" style="display:none">
+                <img id="BlackEyes" src="images/BlackEyes.png" style="display:none">
+                <img id="Blob" src="images/Blob.png" style="display:none">
+                <img id="BuleArrow" src="images/buleArrow.png" style="display:none">
+                <img id="Elephant" src="images/dragon.png" style="display:none">
+                <img id="Fire" src="images/Fire.png" style="display:none">
+                <img id="FlyingCastle" src="images/FlyingCastle.png" style="display:none">
+                <img id="HatWrecker" src="images/dragon.png" style="display:none">
+                <img id="Monster" src="images/monster.png" style="display:none">
+                <img id="MonsterCookie" src="images/monsterCookie.png" style="display:none">
+                <img id="NoMoreSmile" src="images/noMoreSmile.png" style="display:none">
+                <img id="StoneWall" src="images/stoneWall.png" style="display:none">
+                <img id="TextBox" src="images/textBox.png" style="display:none">
+                <img id="TurtlePickle" src="images/TurtlePickle.png" style="display:none">
+                <!--END IMAGE DUMP-->
+                
+                
+                
+                <canvas id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3; background-color: white"> </canvas>
                 <script>
                     window.onload = function()
                     {
                         var c=document.getElementById("myCanvas");
                         var ctx=c.getContext("2d");
-                        var img=document.getElementById("dragon");
+                        var img=document.getElementById("Dragon");
                         ctx.drawImage(img,220,10);
                         var img2=document.getElementById("player1");
                         
