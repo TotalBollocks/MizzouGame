@@ -5,7 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HackMizzou2014</title>
-      
+    
+    <style>
+        #game-log {
+            overflow-y: scroll;
+            padding: 0 25px;
+        }
+
+        #game-log h4 {
+            text-align: left;
+        }
+    </style>
       
       <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -83,8 +93,8 @@
         
         <div class="row">
             <div class="col-sm-12 text-center" style="padding: 20px 50px; border:1px solid #d3d3d3;">
-                <div id = "log-content" style="border:1px solid #d3d3d3; height: 160px; width: 800px;" align="center"> 
-                    <h5 id="log" align="left" style="padding: 15px;"> This is the log </h5>
+                <div id = "game-log" style="border:1px solid #d3d3d3; height: 160px; width: 800px;" align="center"> 
+                    <h1>The Game log</h1>
                 </div>
             </div>
         </div>
@@ -96,7 +106,14 @@
   </body>
 
 <!--JAVA SCRIPT FUNCTION DUMP-->
-<script> 
+<script>
+    var log = $("#game-log");
+
+    function game_log(txt) {
+        var message = "<h4>" + txt + "</h4>";
+        log.append(message);
+    }
+
     function getAttacked() {
     //document.getElementById("log").innerHTML = "You were attacked" ;
     }
