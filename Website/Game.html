@@ -57,10 +57,10 @@
                 <img id="BlackEyes" src="images/BlackEyes.png" style="display:none">
                 <img id="Blob" src="images/Blob.png" style="display:none">
                 <img id="BuleArrow" src="images/buleArrow.png" style="display:none">
-                <img id="Elephant" src="images/dragon.png" style="display:none">
+                <img id="Elephant" src="images/elephant.png" style="display:none">
                 <img id="Fire" src="images/Fire.png" style="display:none">
                 <img id="FlyingCastle" src="images/FlyingCastle.png" style="display:none">
-                <img id="HatWrecker" src="images/dragon.png" style="display:none">
+                <img id="HatWacker" src="images/hatWacker.png" style="display:none">
                 <img id="Monster" src="images/monster.png" style="display:none">
                 <img id="MonsterCookie" src="images/monsterCookie.png" style="display:none">
                 <img id="NoMoreSmile" src="images/noMoreSmile.png" style="display:none">
@@ -77,41 +77,71 @@
                 <script>
                     window.onload = function()
                     {
-                        var c=document.getElementById("myCanvas");
-                        var ctx=c.getContext("2d");
-                        var img=document.getElementById("Dragon");
-                        var img2=document.getElementById("Player1");
-                        var img3=document.getElementById("Player2");
-                        ctx.drawImage(img,270,140);
-                        ctx.drawImage(img2,20,460);
-                        ctx.drawImage(img3,660,460);
-                        
-
-                        //TESTING THE GAME
+                        //Beginning of the game
+                        //create the players
                         var player1 = new player("images/player1.png","Player1",5,2,50);
                         document.getElementById("hp1").innerHTML = "HP: " + player1.health + "/" + player1.maxHealth ;
-                        
                         var player2 = new player("images/player2.png","Player2",5,2,50);
                         document.getElementById("hp2").innerHTML = "HP: " + player2.health + "/" + player2.maxHealth ;
-                        
-                        var encounter = Math.floor((Math.random()*14));
-                        
-                        switch (encounter)
-                            case 1
-                                var Enemy = new enemy("images/BlackEyes.png","BlackEyes",8,0,10);
-                            case 2
-                                var Enemy = new enemy("images/Blob.png","Blog",1,0,70);
-                            case 3
-                                var Enemy = new enemy("images/buleArrow.png", "BuleArrow",5,2,20);
-                                
-                                    
-                        
+                        //Draw the Canvas and players
+                        var c=document.getElementById("myCanvas");
+                        var ctx=c.getContext("2d");
+                        var img2=document.getElementById("Player1");
+                        var img3=document.getElementById("Player2");
+                        ctx.drawImage(img2,20,460);
+                        ctx.drawImage(img3,660,460);
 
-                        updateHealth(player1,5);
-                        updateHealth(player2,7);
-                        updateHealth(player1,5);
-                    
                         
+                        //START OF AN ENCOUNTER
+                        var encounter = Math.floor((Math.random()*14));
+                        switch (encounter) {
+                            case 0:
+                                var Enemy = new enemy("images/BlackEyes.png","BlackEyes",8,1,17);
+                                break;
+                            case 1:
+                                var Enemy = new enemy("images/Blob.png","Blob",2,1,49);
+                                break;
+                            case 2:
+                                var Enemy = new enemy("images/buleArrow.png", "BuleArrow",5,2,20);
+                                break;
+                            case 3:
+                                var Enemy = new enemy("images/Dragon.png","Dragon",7,4,40);
+                                break;
+                            case 4:
+                                var Enemy = new enemy("images/Elephant.png","Elephant",3,2,28);
+                                break;
+                            case 5:
+                                var Enemy = new enemy("images/Fire.png","Fire",10,0,8);
+                                break;
+                            case 6:
+                                var Enemy = new enemy("images/FlyingCastle.png","FlyingCastle",3,3,36);
+                                break;
+                            case 7:
+                                var Enemy = new enemy("images/hatWacker.png","HatWacker",2,2,22);
+                                break;
+                            case 8:
+                                var Enemy = new enemy("images/monster.png","Monster",3,1,31);
+                                break;
+                            case 9:
+                                var Enemy = new enemy("images/monstercookie.png","MonsterCookie",2,1,25);
+                                break;
+                            case 10:
+                                var Enemy = new enemy("images/noMoreSmile.png","NoMoreSmile",6,3,42);
+                                break;
+                            case 11:
+                                var Enemy = new enemy("images/StoneWall.png","StoneWall",1,5,53);
+                                break;
+                            case 12:
+                                var Enemy = new enemy("images/textbox.png","TextBox",0,0,100);
+                                break;
+                            case 13:
+                                var Enemy = new enemy("images/turtlepickle.png","TurtlePickle",4,2,35);
+                                break;
+                        }
+                    
+                        var img=document.getElementById(Enemy.name);
+                        ctx.drawImage(img,270,140);
+                        game_log("A wild " + Enemy.name + " has appeared to fight you!")
                         
                     }
                         
