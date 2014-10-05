@@ -11,6 +11,58 @@
       
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+      
+      
+    <!--JAVA SCRIPT FUNCTION DUMP-->
+
+
+<script>
+    
+    function getAttacked() {
+    document.getElementById("log").innerHTML = "You were attacked" ;
+    }
+
+
+
+<!--PLAYER CLASS-->
+
+    function player(image,name,weapon,armor,health) {  
+        var invPressed = false;
+        document.getElementById("log").innerHTML = name;
+        this.name = name;
+        this.weapon = weapon;
+        this.armor = armor;
+        this.Str = Math.floor((Math.random()*6)+3);
+        this.Skl = Math.floor((Math.random()*6)+3);
+        this.Ini = Math.floor((Math.random()*6)+3);
+        this.Dex = Math.floor((Math.random()*6)+3);
+        this.Int = Math.floor((Math.random()*6)+3);
+        this.Spr = Math.floor((Math.random()*6)+3);
+        this.Tgh = Math.floor((Math.random()*6)+3);
+        this.Lck = Math.floor((Math.random()*10));
+        
+    
+        
+        
+    }
+</script>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
   </head>
   <body>
@@ -50,6 +102,10 @@
                     var ctx=c.getContext("2d");
                     var img=document.getElementById("dragon");
                     ctx.drawImage(img,10,10);
+                    
+                    <!--TESTING GAME-->
+                    var player1 = new player("images/player1.png","Player1",5,2,50)   
+                        
                 </script>   
                 <br>
                 <button type="button" onclick="getAttacked()">Attack </button>  
@@ -57,8 +113,10 @@
         </div> <!--ROW 1-->
         
         <div class="row">
-            <div class="col-sm-12" style="padding: 20px 50px 20px 50px; border:1px solid #d3d3d3;" height="300px">
-                <h5 id="log"> This is the log </h5>
+            <div class="col-sm-12 text-center" style="padding: 20px 50px; border:1px solid #d3d3d3;">
+                <div id = "log-content" style="border:1px solid #d3d3d3; height: 160px; width: 800px;" align="center"> 
+                    <h5 id="log" align="left" style="padding: 15px;"> This is the log </h5>
+                </div>
             </div>
         </div>
         
@@ -70,8 +128,8 @@
 </html>
 
 
-<script>
-    function getAttacked() {
-    document.getElementById("log").innerHTML = "You were attacked" ;
-    }
-</script>
+
+
+
+
+
