@@ -12,7 +12,7 @@
             padding: 0 25px;
         }
 
-        #game-log h4 {
+        #game-log h6 {
             text-align: left;
         }
     </style>
@@ -120,7 +120,7 @@
                     <h5> Enemy's Health </h5>
                     <h5 id="hp3" style="background-image: url(images/healthBar.png); width:103px; height:21px margin-left: 50px;" >  </h5>
                 </div>
-                <div class="col-sm-1" align="left" style="padding:0px;"> <button type="button" onclick="startCombat(player2,Enemy"> -Attack- </button> <button type="button" onclick="">Inventory</button> </div>
+                <div class="col-sm-1" align="left" style="padding:0px;"> <button type="button" onclick="startCombat(player2,Enemy)"> -Attack- </button> <button type="button" onclick="">Inventory</button> </div>
                 <div class="col-sm-2"> 
                     <h5 id="hp2" style="background-image: url(images/healthBar.png); width:103px; height:21px ">  </h5>
                     <img src="images/manaBar.png">                 
@@ -130,7 +130,7 @@
         
         
         <div class="row">
-            <div class="col-sm-12 text-center" style="padding: 20px 50px; border:1px solid #d3d3d3;">
+            <div class="col-sm-12 " style="padding: 20px 50px; border:1px solid #d3d3d3;">
                 <div id = "game-log" style="border:1px solid #d3d3d3; height: 160px; width: 800px;" align="center"> 
                     <h1>The Game log</h1>
                 </div>
@@ -148,7 +148,7 @@
     var log = $("#game-log");
 
     function game_log(txt) {
-        var message = "<h4>" + txt + "</h4>";
+        var message = "<h6>" + txt + "</h6>";
         log.append(message);
     }
 
@@ -156,6 +156,8 @@
         
         game_log(Atkr.name + " is attacking " + Enmy.name);
         updateHealth(Enmy,Atkr.attack);
+        game_log(Enmy.name + " is attacking " + Atkr.name);
+        updateHealth(Atkr,Enmy.attack);
     }
 
 
@@ -202,31 +204,23 @@
     }
     
     function updateHealth(target, num){
-        if (target.health <= 0)
+
+        target.health -= num;
+        if (target.name == "Player1")
         {
-            target.health = 0;
-            target.alive = false;
-            game_log(target.name + " has been slain!");
-            newEncounter();
+            document.getElementById("hp1").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
+            game_log("Player1 was hit for " + num + " damage!");
+        }
+        else if (target.name == "Player2")
+        {
+            document.getElementById("hp2").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
+            game_log("Player2 was hit for " + num + " damage!");
         }
         else
         {
-            target.health -= num;
-            if (target.name == "Player1")
-            {
-                document.getElementById("hp1").innerHTML = "HP: " + window.target.health + "/" + window.target.maxHealth ;
-                game_log("Player1 was hit for " + num + " damage!");
-            }
-            else if (target.name == "Player2")
-            {
-                document.getElementById("hp2").innerHTML = "HP: " + window.target.health + "/" + window.target.maxHealth ;
-                game_log("Player2 was hit for " + num + " damage!");
-            }
-            else
-                document.getElementById("hp3").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
-                game_log(target.name + " was hit for " + num + " damage!");
+            document.getElementById("hp3").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
+            game_log(target.name + " was hit for " + num + " damage!");
         }
-        
         
         //After all of the damage
         if (target.health <= 0)
