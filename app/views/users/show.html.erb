@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p id="notice" style="margin-top: 20px;"><%= notice %></p>
 
 <p>
   <strong>Username:</strong>
@@ -12,7 +12,226 @@
 
 <% if @user.can_play %>
   <p>Have Fun</p>
-  <p>Game soon to be displayed...</p>
+          <div class="row" style=" padding-top:80px;">
+            <div class="col-sm-12 text-center">
+                
+                <!--canvas for putting images-->
+                <!--Loading all possible images-->
+              <%= image_tag "dragon.png", class: "hide", id: "Dragon" %>
+              <%= image_tag "BlackEyes.png", class: "hide", id: "BlackEyes" %>
+              <%= image_tag "Blob.png", class: "hide", id: "Blob" %>
+              <%= image_tag "buleArrow.png", class: "hide", id: "BuleArrow" %>
+              <%= image_tag "elephant.png", class: "hide", id: "Elephant" %>
+              <%= image_tag "Fire.png", class: "hide", id: "Fire" %>
+              <%= image_tag "FlyingCastle.png", class: "hide", id: "FlyingCastle" %>
+              <%= image_tag "hatWacker.png", class: "hide", id: "HatWacker" %>
+              <%= image_tag "monster.png", class: "hide", id: "Monster" %>
+              <%= image_tag "monsterCookie.png", class: "hide", id: "MonsterCookie" %>
+              <%= image_tag "noMoreSmile.png", class: "hide", id: "NoMoreSmile" %>
+              <%= image_tag "stoneWall.png", class: "hide", id: "StoneWall" %>
+              <%= image_tag "textBox.png", class: "hide", id: "TextBox" %>
+              <%= image_tag "TurtlePickle.png", class: "hide", id: "TurtlePickle" %>
+              <%= image_tag "Player1.png", class: "hide", id: "Player1" %>
+              <%= image_tag "Player2.png", class: "hide", id: "Player2" %>
+                <!--END IMAGE DUMP-->
+                
+                
+                
+                <canvas id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3; background-color: white"> </canvas>
+                <script>
+                    window.onload = function()
+                    {
+                        //Beginning of the game
+                        //create the players
+                        var player1 = new player("player1.png","Player1",5,2,50);
+                        document.getElementById("hp1").innerHTML = "HP: " + player1.health + "/" + player1.maxHealth ;
+                        var player2 = new player("player2.png","Player2",5,2,50);
+                        document.getElementById("hp2").innerHTML = "HP: " + player2.health + "/" + player2.maxHealth ;
+                        //Draw the Canvas and players
+                        var c=document.getElementById("myCanvas");
+                        var ctx=c.getContext("2d");
+                        var img2=document.getElementById("Player1");
+                        var img3=document.getElementById("Player2");
+                        ctx.drawImage(img2,20,460);
+                        ctx.drawImage(img3,660,460);
+
+                        
+                        //START OF AN ENCOUNTER
+                        var encounter = Math.floor((Math.random()*14));
+                        switch (encounter) {
+                            case 0:
+                                var Enemy = new enemy("BlackEyes.png","BlackEyes",8,1,17);
+                                break;
+                            case 1:
+                                var Enemy = new enemy("Blob.png","Blob",2,1,49);
+                                break;
+                            case 2:
+                                var Enemy = new enemy("buleArrow.png", "BuleArrow",5,2,20);
+                                break;
+                            case 3:
+                                var Enemy = new enemy("Dragon.png","Dragon",7,4,40);
+                                break;
+                            case 4:
+                                var Enemy = new enemy("Elephant.png","Elephant",3,2,28);
+                                break;
+                            case 5:
+                                var Enemy = new enemy("Fire.png","Fire",10,0,8);
+                                break;
+                            case 6:
+                                var Enemy = new enemy("FlyingCastle.png","FlyingCastle",3,3,36);
+                                break;
+                            case 7:
+                                var Enemy = new enemy("hatWacker.png","HatWacker",2,2,22);
+                                break;
+                            case 8:
+                                var Enemy = new enemy("monster.png","Monster",3,1,31);
+                                break;
+                            case 9:
+                                var Enemy = new enemy("monstercookie.png","MonsterCookie",2,1,25);
+                                break;
+                            case 10:
+                                var Enemy = new enemy("noMoreSmile.png","NoMoreSmile",6,3,42);
+                                break;
+                            case 11:
+                                var Enemy = new enemy("StoneWall.png","StoneWall",1,5,53);
+                                break;
+                            case 12:
+                                var Enemy = new enemy("textbox.png","TextBox",0,0,100);
+                                break;
+                            case 13:
+                                var Enemy = new enemy("turtlepickle.png","TurtlePickle",4,2,35);
+                                break;
+                        }
+                    
+                        var img=document.getElementById(Enemy.name);
+                        ctx.drawImage(img,270,140);
+                        game_log("A wild " + Enemy.name + " has appeared to fight you!")
+                        
+                    }
+                        
+                </script>   
+                <br>
+ 
+            </div>
+        </div> <!--ROW 1-->
+        
+        
+        <div class="row" style=" border:1px solid #d3d3d3; height:100px;">
+                 
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2">
+                    <h5 id="hp1" style="background-image: url(<%= asset_path 'healthBar.png' %>); width:103px; height:21px ">  </h5>
+                  <%= image_tag "manaBar.png" %>
+                </div>
+                <div class="col-sm-1" align="left" style="padding:0px;"> <button type="button" onclick="getAttacked()"> -Attack- </button> <button type="button" onclick="">Inventory</button> </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-1" align="left" style="padding:0px;"> <button type="button" onclick="getAttacked()"> -Attack- </button> <button type="button" onclick="">Inventory</button> </div>
+                <div class="col-sm-2"> 
+                    <h5 id="hp2" style="background-image: url(<%= asset_path 'healthBar.png' %>); width:103px; height:21px ">  </h5>
+                  <%= image_tag "manaBar.png" %>                 
+                </div>
+                <div class="col-sm-1"></div>
+        </div>
+        
+        
+        <div class="row">
+            <div class="col-sm-12 text-center" style="padding: 20px 50px; border:1px solid #d3d3d3;">
+                <div id = "game-log" style="border:1px solid #d3d3d3; height: 160px; width: 800px;" align="center"> 
+                    <h1>The Game log</h1>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+    </div> <!--Container fluid-->
+  </body>
+
+<!--JAVA SCRIPT FUNCTION DUMP-->
+<script>
+    var log = $("#game-log");
+
+    function game_log(txt) {
+        var message = "<h4>" + txt + "</h4>";
+        log.append(message);
+    }
+
+    function getAttacked() {
+    //document.getElementById("log").innerHTML = "You were attacked" ;
+    }
+
+
+
+
+    function player(image,name,weapon,armor,health) {  
+        var invPressed = false;
+        this.name = name;
+        this.weapon = weapon;
+        this.armor = armor;
+        this.Str = Math.floor((Math.random()*6)+3);
+        this.Skl = Math.floor((Math.random()*6)+3);
+        this.Ini = Math.floor((Math.random()*6)+3);
+        this.Dex = Math.floor((Math.random()*6)+3);
+        this.Int = Math.floor((Math.random()*6)+3);
+        this.Spr = Math.floor((Math.random()*6)+3);
+        this.Tgh = Math.floor((Math.random()*6)+3);
+        this.Lck = Math.floor((Math.random()*10)); 
+        this.defense = (Math.floor(this.Tgh/2) + this.armor);
+        this.attack = this.Str + this.weapon;
+        this.health = health + this.Tgh;
+        this.maxHealth = this.health;
+        this.alive = true;    
+    }
+    
+    function enemy(image,name,weapon,armor,health) {  
+        var invPressed = false;
+        this.name = name;
+        this.weapon = weapon;
+        this.armor = armor;
+        this.Str = Math.floor((Math.random()*6)+3);
+        this.Skl = Math.floor((Math.random()*6)+3);
+        this.Ini = Math.floor((Math.random()*6)+3);
+        this.Dex = Math.floor((Math.random()*6)+3);
+        this.Int = Math.floor((Math.random()*6)+3);
+        this.Spr = Math.floor((Math.random()*6)+3);
+        this.Tgh = Math.floor((Math.random()*6)+3);
+        this.Lck = Math.floor((Math.random()*10)); 
+        this.defense = (Math.floor(this.Tgh/2) + this.armor);
+        this.attack = this.Str + this.weapon;
+        this.health = health + this.Tgh;
+        this.maxHealth = this.health;
+        this.alive = true;    
+    }
+    
+    function updateHealth(target, num){
+        if (target.health <= 0)
+        {
+            target.health = 0;
+            target.alive = false;
+        }
+        else
+        {
+            target.health -= num;
+            if (target.name == "Player1")
+            {
+                document.getElementById("hp1").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
+                game_log("Player1 was hit for " + num + " damage!");
+            }
+            else if (target.name == "Player2")
+            {
+                document.getElementById("hp2").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
+                game_log("Player2 was hit for " + num + " damage!");
+            }
+            else
+                document.getElementById("hp3").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;     
+        }
+    }
+    
+    
+    
+</script>
+
 <% else %>
 <p>You must wait until <%= @user.play_time %> to play</p>
 <% end %>
