@@ -2,12 +2,12 @@
 
 <p>
   <strong>Username:</strong>
-  <%= @user.username %>
+  <%= @user %>
 </p>
 
 <p>
   <strong>Score:</strong>
-  <%= @user.score || 0 %>
+  <%= @user.score %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

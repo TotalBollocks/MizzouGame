@@ -9,4 +9,7 @@ class User < ActiveRecord::Base
     username
   end
   
+  def can_play
+    last_played < DateTime.now
+  end
 end
