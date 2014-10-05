@@ -10,6 +10,13 @@
   <%= @user.score %>
 </p>
 
+<% if @user.can_play %>
+  <p>Have Fun</p>
+  <p>Game soon to be displayed...</p>
+<% else %>
+<p>You must wait until <%= @user.play_time %> to play</p>
+<% end %>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
 <%= link_to 'Delete Account', @user, method: :delete, data: {message: "Are you sure you want to leave?"} %>

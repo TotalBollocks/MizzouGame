@@ -10,6 +10,15 @@ class User < ActiveRecord::Base
   end
   
   def can_play
-    last_played < DateTime.now
+    if last_played 
+      last_played + 15.minutes < DateTime.now
+    else
+      true
+    end
+  end
+  
+  def play_time
+    time = last_played + 15.minutes
+    time.strftime("%l:%M %p")
   end
 end
