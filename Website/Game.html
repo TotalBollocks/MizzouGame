@@ -79,10 +79,14 @@
                     {
                         //Beginning of the game
                         //create the players
+                        
+                        
                         window.player1 = new player("images/player1.png","Player1",5,2,50);
                         document.getElementById("hp1").innerHTML = "HP: " + player1.health + "/" + player1.maxHealth ;
+                        document.getElementById("xp1").innerHTML = "XP: " + player1.xp ;
                         window.player2 = new player("images/player2.png","Player2",5,2,50);
                         document.getElementById("hp2").innerHTML = "HP: " + player2.health + "/" + player2.maxHealth ;
+                        document.getElementById("xp2").innerHTML = "XP: " + player2.xp ;
                         //Draw the Canvas and players
                         var c=document.getElementById("myCanvas");
                         var ctx=c.getContext("2d");
@@ -113,7 +117,8 @@
                 <div class="col-sm-1"></div>
                 <div class="col-sm-2">
                     <h5 id="hp1" style="background-image: url(images/healthBar.png); width:103px; height:21px ">  </h5>
-                    <img src="images/manaBar.png">
+                    <h5 id="xp1" style="background-image: url(images/manaBar.png); width:103px; height:21px ">  </h5>  
+ 
                 </div>
                 <div class="col-sm-1" align="left" style="padding:0px;"> <button type="button" onclick="startCombat(player1,Enemy)"> -Attack- </button> <button type="button" onclick="">Inventory</button> </div>
                 <div class="col-sm-4" align="center">
@@ -122,8 +127,10 @@
                 </div>
                 <div class="col-sm-1" align="left" style="padding:0px;"> <button type="button" onclick="startCombat(player2,Enemy)"> -Attack- </button> <button type="button" onclick="">Inventory</button> </div>
                 <div class="col-sm-2"> 
-                    <h5 id="hp2" style="background-image: url(images/healthBar.png); width:103px; height:21px ">  </h5>
-                    <img src="images/manaBar.png">                 
+                    <h5 id="hp2" style="background-image: url(images/healthBar.png); width:103px; height:21px ">  </h5> 
+                    
+                    <h5 id="xp2" style="background-image: url(images/manaBar.png); width:103px; height:21px ">  </h5>                    
+                                  
                 </div>
                 <div class="col-sm-1"></div>
         </div>
@@ -168,6 +175,7 @@
         this.name = name;
         this.weapon = weapon;
         this.armor = armor;
+        this.xp = 0;
         this.Str = Math.floor((Math.random()*6)+3);
         this.Skl = Math.floor((Math.random()*6)+3);
         this.Ini = Math.floor((Math.random()*6)+3);
@@ -188,6 +196,7 @@
         this.name = name;
         this.weapon = weapon;
         this.armor = armor;
+        this.xp = 0;
         this.Str = Math.floor((Math.random()*6)+3);
         this.Skl = Math.floor((Math.random()*6)+3);
         this.Ini = Math.floor((Math.random()*6)+3);
@@ -209,11 +218,15 @@
         if (target.name == "Player1")
         {
             document.getElementById("hp1").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
+            document.getElementById("xp1").innerHTML = "XP: " + target.xp;
+            target.xp+=Enemy.Lck/2;
             game_log("Player1 was hit for " + num + " damage!");
         }
         else if (target.name == "Player2")
         {
             document.getElementById("hp2").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
+            document.getElementById("xp2").innerHTML = "XP: " + target.xp;
+            target.xp+=Enemy.Lck/2;
             game_log("Player2 was hit for " + num + " damage!");
         }
         else
@@ -225,6 +238,8 @@
         //After all of the damage
         if (target.health <= 0)
         {
+            if(target.name == "Player1")
+                target.xp-=Enemy.health/2;
             target.health = 0;
             target.alive = false;
             game_log(target.name + " has been slain!");
