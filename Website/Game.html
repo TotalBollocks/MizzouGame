@@ -166,9 +166,7 @@
         game_log(Enmy.name + " is attacking " + Atkr.name);
         updateHealth(Atkr,Enmy.attack);
     }
-
-
-
+    
 
     function player(image,name,weapon,armor,health) {  
         var invPressed = false;
@@ -213,7 +211,22 @@
     }
     
     function updateHealth(target, num){
-
+        
+         if(player1.alive == false && player2.alive == false){
+            player1.alive = true;
+            player2.alive = true;
+            player1.health = player1.maxHealth;
+            player2.health = player2.maxHealth;
+            document.getElementById("hp1").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
+            document.getElementById("hp2").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
+            game_log("Both players have died...but are revived..");
+        }
+       
+        if(player1.health <= 0)
+            player1.health = 0;
+        if(player2.health <= 0)
+            player2.heatlh = 0;
+        
         target.health -= num;
         if (target.name == "Player1")
         {
@@ -303,7 +316,9 @@
         var img=document.getElementById(window.Enemy.name);
         var ctx=c.getContext("2d");
         ctx.drawImage(img,270,140);
-        game_log("A wild " + window.Enemy.name + " has appeared to fight you!")        
+        game_log("A wild " + window.Enemy.name + " has appeared to fight you!")       
+        
+
     }
         
     
