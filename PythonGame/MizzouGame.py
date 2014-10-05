@@ -74,8 +74,8 @@ class player():
         self.imageRect = Rect(self.x, self.y, self.image.get_rect().w, self.image.get_rect().h)
         self.button1Rect = Rect(self.x, self.y+120, self.button1.get_rect().w, self.button1.get_rect().h)
         self.button2Rect = Rect(self.x, self.y+190, self.button2.get_rect().w, self.button2.get_rect().h)
-        self.healthRect = Rect(self.x+120, self.y+70, self.healthImage.get_rect().w, self.healthImage.get_rect().h)
-        self.healthAmount = Rect(self.x+122, self.y+72, self.healthImage.get_rect().w-4, self.healthImage.get_rect().h-4)
+        self.healthRect = Rect(self.x+120, self.y+71, self.healthImage.get_rect().w, self.healthImage.get_rect().h)
+        self.healthAmount = Rect(self.x+122, self.y+73, self.healthImage.get_rect().w-4, self.healthImage.get_rect().h-4)
         self.manaRect = Rect(self.x+120, self.y+25+70, self.manaImage.get_rect().w, self.manaImage.get_rect().h)
         self.manaAmount = Rect(self.x+122, self.y+25+72, self.manaImage.get_rect().w-4, self.manaImage.get_rect().h-4)
         
@@ -117,7 +117,21 @@ class player():
 
 class encounter():
     def __init__(self, image, name, weapon, armor, health):
+
+        self.x = 50
+        self.y = 50
+
         self.image = pygame.image.load(image + '.png')
+        self.imageRect = Rect(self.x+20, self.y+20, self.image.get_rect().w, self.image.get_rect().h)
+        
+        self.backgroundImage = pygame.image.load('background.png')
+        self.backgroundRect = Rect(self.x, self.y, self.backgroundImage.get_rect().w, self.backgroundImage.get_rect().h)
+
+        self.healthImage =  pygame.image.load('healthBar.png')
+
+        self.healthRect = Rect(self.x+70, self.y+5, self.healthImage.get_rect().w, self.healthImage.get_rect().h)
+        self.healthText = Rect(self.x+8, self.y+5, self.healthImage.get_rect().w, self.healthImage.get_rect().h)
+        self.healthAmount = Rect(self.x+72, self.y+7, self.healthImage.get_rect().w-4, self.healthImage.get_rect().h-4)
 
         self.name = name
         self.idNumber = 0
@@ -173,11 +187,18 @@ class encounter():
         label = font.render(health, 1, (0,255,0,))
         
         # Center the image
-        size_x, size_y = window.get_size()
+        backgroundImage_size_x, backgroundImage_size_y = self.backgroundImage.get_size()
         image_size_x, image_size_y = self.image.get_size()
         
-        window.blit(self.image, (size_x/2-image_size_x/2, size_y/2-image_size_y/2-100))
-        window.blit(label, (size_x/2-image_size_x/2, size_y/2-image_size_y/2-100))
+
+        window.blit(self.backgroundImage, self.backgroundRect)
+        window.blit(self.image, (self.x+backgroundImage_size_x/2-(image_size_x/2), self.y+backgroundImage_size_y/2-(image_size_y/2)))
+
+        window.blit(self.healthImage, self.healthRect)
+        pygame.draw.rect(window, (255,0,0), self.healthAmount)   
+        
+        #window.blit(self.image, (size_x/2-image_size_x/2, size_y/2-image_size_y/2-100))
+        window.blit(label, (self.healthText))
     
 
 class other():
