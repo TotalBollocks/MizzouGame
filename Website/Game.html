@@ -43,14 +43,16 @@
                 
                 <!--canvas for putting images-->
                 <img id="dragon" src="images/dragon.png" style="display:none">
-                <canvas id="myCanvas" width="800" height="660" style="border:1px solid #d3d3d3;"> </canvas>
+                <canvas id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3;"> </canvas>
                 <script>
                     window.onload = function()
                     {
                         var c=document.getElementById("myCanvas");
                         var ctx=c.getContext("2d");
                         var img=document.getElementById("dragon");
-                        ctx.drawImage(img,10,10);
+                        ctx.drawImage(img,220,10);
+                        var img2=document.getElementById("player1");
+                        
 
                         //TESTING THE GAME
                         var player1 = new player("images/player1.png","Player1",5,2,50);
@@ -62,9 +64,22 @@
                         
                 </script>   
                 <br>
-                <button type="button" onclick="getAttacked()">Attack </button>  
+ 
             </div>
         </div> <!--ROW 1-->
+        
+        
+        <div class="row" style=" border:1px solid #d3d3d3; height:100px;">
+                 
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2"><img src="images/healthBar.png" ><img src="images/manaBar.png"></div>
+                <div class="col-sm-1" align="left" style="padding:0px;"> <button type="button" onclick="getAttacked()"> -Attack- </button> <button type="button" onclick="">Inventory</button> </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-1" align="left" style="padding:0px;"> <button type="button" onclick="getAttacked()"> -Attack- </button> <button type="button" onclick="">Inventory</button> </div>
+                <div class="col-sm-2"> <img src="images/healthBar.png" ><img src="images/manaBar.png"></div>
+                <div class="col-sm-1"></div>
+        </div>
+        
         
         <div class="row">
             <div class="col-sm-12 text-center" style="padding: 20px 50px; border:1px solid #d3d3d3;">
@@ -104,7 +119,32 @@
         this.Spr = Math.floor((Math.random()*6)+3);
         this.Tgh = Math.floor((Math.random()*6)+3);
         this.Lck = Math.floor((Math.random()*10)); 
+
+        self.defense = (Math.floor(this.Tgh/2) + this.armor);
+        
+        self.attack = self.Str + self.weapon;
+        
+        self.health = health + self.Tgh;
+        
+        self.alive = true;
     }
+    
+    function updateHealth(target, num){
+        if (target.health <= 0)
+        {
+            target.health = 0;
+            target.alive = false;
+        }
+        else
+        {
+            target.health -= num;
+        }
+        
+        
+    }
+    
+    
+    
 </script>
         
 </html>
