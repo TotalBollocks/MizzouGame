@@ -89,16 +89,29 @@
 
                         //TESTING THE GAME
                         var player1 = new player("images/player1.png","Player1",5,2,50);
-                        var player2 = new player("images/player1.png","Player1",5,2,50);
+                        document.getElementById("hp1").innerHTML = "HP: " + player1.health + "/" + player1.maxHealth ;
+                        
+                        var player2 = new player("images/player2.png","Player2",5,2,50);
+                        document.getElementById("hp2").innerHTML = "HP: " + player2.health + "/" + player2.maxHealth ;
+                        
+                        var encounter = Math.floor((Math.random()*14));
+                        
+                        switch (encounter)
+                            case 1
+                                var Enemy = new enemy("images/BlackEyes.png","BlackEyes",8,0,10);
+                            case 2
+                                var Enemy = new enemy("images/Blob.png","Blog",1,0,70);
+                            case 3
+                                var Enemy = new enemy("images/buleArrow.png", "BuleArrow",5,2,20);
+                                
+                                    
+                        
 
-                        var logOut = "Player has taken " + player1.weapon + " Damage";
+                        updateHealth(player1,5);
+                        updateHealth(player2,7);
+                        updateHealth(player1,5);
+                    
                         
-                        game_log("Testing this thing");
-                        game_log("ey der");
-                        game_log("you gud looking doing " +player1.weapon + " ouchies");
-                        
-                        document.getElementById("hp1").innerHTML = "HP: " + player1.health + "/" + player1.health ;
-                        document.getElementById("hp2").innerHTML = "HP: " + player2.health + "/" + player2.health ;
                         
                     }
                         
@@ -156,11 +169,9 @@
 
 
 
-<!--PLAYER CLASS-->
 
     function player(image,name,weapon,armor,health) {  
         var invPressed = false;
-        // document.getElementById("log").innerHTML = name; 
         this.name = name;
         this.weapon = weapon;
         this.armor = armor;
@@ -172,14 +183,31 @@
         this.Spr = Math.floor((Math.random()*6)+3);
         this.Tgh = Math.floor((Math.random()*6)+3);
         this.Lck = Math.floor((Math.random()*10)); 
-
         this.defense = (Math.floor(this.Tgh/2) + this.armor);
-        
         this.attack = this.Str + this.weapon;
-        
         this.health = health + this.Tgh;
-        
-        this.alive = true;
+        this.maxHealth = this.health;
+        this.alive = true;    
+    }
+    
+    function enemy(image,name,weapon,armor,health) {  
+        var invPressed = false;
+        this.name = name;
+        this.weapon = weapon;
+        this.armor = armor;
+        this.Str = Math.floor((Math.random()*6)+3);
+        this.Skl = Math.floor((Math.random()*6)+3);
+        this.Ini = Math.floor((Math.random()*6)+3);
+        this.Dex = Math.floor((Math.random()*6)+3);
+        this.Int = Math.floor((Math.random()*6)+3);
+        this.Spr = Math.floor((Math.random()*6)+3);
+        this.Tgh = Math.floor((Math.random()*6)+3);
+        this.Lck = Math.floor((Math.random()*10)); 
+        this.defense = (Math.floor(this.Tgh/2) + this.armor);
+        this.attack = this.Str + this.weapon;
+        this.health = health + this.Tgh;
+        this.maxHealth = this.health;
+        this.alive = true;    
     }
     
     function updateHealth(target, num){
@@ -191,9 +219,19 @@
         else
         {
             target.health -= num;
+            if (target.name == "Player1")
+            {
+                document.getElementById("hp1").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
+                game_log("Player1 was hit for " + num + " damage!");
+            }
+            else if (target.name == "Player2")
+            {
+                document.getElementById("hp2").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;
+                game_log("Player2 was hit for " + num + " damage!");
+            }
+            else
+                document.getElementById("hp3").innerHTML = "HP: " + target.health + "/" + target.maxHealth ;     
         }
-        
-        
     }
     
     
