@@ -89,10 +89,17 @@
 
                         //TESTING THE GAME
                         var player1 = new player("images/player1.png","Player1",5,2,50);
+                        var player2 = new player("images/player1.png","Player1",5,2,50);
 
                         var logOut = "Player has taken " + player1.weapon + " Damage";
-                        console.log(player1.weapon);
-                        document.getElementById("log").innerHTML = logOut;
+                        
+                        game_log("Testing this thing");
+                        game_log("ey der");
+                        game_log("you gud looking doing " +player1.weapon + " ouchies");
+                        
+                        document.getElementById("hp1").innerHTML = "HP: " + player1.health + "/" + player1.health ;
+                        document.getElementById("hp2").innerHTML = "HP: " + player2.health + "/" + player2.health ;
+                        
                     }
                         
                 </script>   
@@ -105,11 +112,17 @@
         <div class="row" style=" border:1px solid #d3d3d3; height:100px;">
                  
                 <div class="col-sm-1"></div>
-                <div class="col-sm-2"><img src="images/healthBar.png" ><img src="images/manaBar.png"></div>
+                <div class="col-sm-2">
+                    <h5 id="hp1" style="background-image: url(images/healthBar.png); width:103px; height:21px ">  </h5>
+                    <img src="images/manaBar.png">
+                </div>
                 <div class="col-sm-1" align="left" style="padding:0px;"> <button type="button" onclick="getAttacked()"> -Attack- </button> <button type="button" onclick="">Inventory</button> </div>
                 <div class="col-sm-4"></div>
                 <div class="col-sm-1" align="left" style="padding:0px;"> <button type="button" onclick="getAttacked()"> -Attack- </button> <button type="button" onclick="">Inventory</button> </div>
-                <div class="col-sm-2"> <img src="images/healthBar.png" ><img src="images/manaBar.png"></div>
+                <div class="col-sm-2"> 
+                    <h5 id="hp2" style="background-image: url(images/healthBar.png); width:103px; height:21px ">  </h5>
+                    <img src="images/manaBar.png">                 
+                </div>
                 <div class="col-sm-1"></div>
         </div>
         
@@ -160,13 +173,13 @@
         this.Tgh = Math.floor((Math.random()*6)+3);
         this.Lck = Math.floor((Math.random()*10)); 
 
-        self.defense = (Math.floor(this.Tgh/2) + this.armor);
+        this.defense = (Math.floor(this.Tgh/2) + this.armor);
         
-        self.attack = self.Str + self.weapon;
+        this.attack = this.Str + this.weapon;
         
-        self.health = health + self.Tgh;
+        this.health = health + this.Tgh;
         
-        self.alive = true;
+        this.alive = true;
     }
     
     function updateHealth(target, num){
